@@ -1,0 +1,46 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews
+    </IfModule>
+
+    RewriteEngine On
+
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteRule ^.well-known/ - [L,NC]
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)/$ /$1 [L,R=301]
+
+    # Handle Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+    RewriteCond %{HTTPS} !=on
+	RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+<FilesMatch "\.(css|flv|gif|htm|html|ico|jpe|js|mp3|mp4|pdf|swf|txt)$">
+	<IfModule mod_expires.c>
+		ExpiresActive Off
+	</IfModule>
+	<IfModule mod_headers.c>
+		FileETag None
+		Header unset ETag
+		Header unset Pragma
+		Header unset Cache-Control
+		Header unset Last-Modified
+		Header set Pragma "no-cache"
+		Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
+		Header set Expires "Thu, 1 Jan 1970 00:00:00 GMT"
+	</IfModule>
+</FilesMatch>
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Defina o pacote “ea-php73” como a linguagem padrão de programação “PHP”.
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php73 .php .php7 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit

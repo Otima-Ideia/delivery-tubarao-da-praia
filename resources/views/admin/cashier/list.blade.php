@@ -1,0 +1,96 @@
+@extends('layouts.admin')
+
+@section('title', 'Operacoes Caixa')
+
+@section('content_header')
+<h1>Operacoes Caixa</h1>
+@stop
+
+@section('content')
+<div class="box">
+    <div class="box-header with-border">
+        <h3 class="box-title"></h3>
+        <div class="col-md-2">
+
+           
+
+        </div>
+        <div class="box-tools pull-right">
+
+            <!--<input type="button" class="btn btn-info" id="export-csv" value="exportar CSV">-->
+
+            <!-- Buttons, labels, and many other things can be placed here! -->
+            <!-- Here is a label for example -->
+        </div>
+        <!-- /.box-tools -->
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <form id="client-search-form">
+            <div class="input-group">
+               
+                <input name="search" id="client-search-term-input" type="text" class="form-control" placeholder="Digite para pesquisar por nome, email ou whatsapp" ">
+                <div class="input-group-btn">
+                    <button class="btn btn-info">
+                        <i class="fa fa-search"></i><span class="hidden-xs"> Pesquisar</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+        
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Valor Movimentado</th>
+                        <th>Operacoes</th>
+                        
+                        <th>Data</th>
+                 
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($clients as $client)
+                    <tr>
+                       
+                        <td>   <a href="{{ route('admin.cashier.show', ['id' => $client->caixa_status_id]) }}"      </td> {{ $client->id }} 
+                        <td>{{ $client->total }}</td>
+                        <td>{{ $client->operacoes }}</td>
+                        
+                        <td>{{ date_format($client->created_at,"Y/m/d") }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        
+        
+       
+    </div>
+    <!-- /.box-body -->
+    <div class="box-footer">
+        
+    </div>
+    <!-- box-footer -->
+</div>
+<!-- /.box -->
+@endsection
+
+@section('js')
+<script>
+    $(function() {
+        $('#client-search').on('keypress', function() {
+            if (e.which == 13) {
+                $('form#client-search-form').submit();
+                return false; //<---- Add this line
+            }
+        });
+
+        $('#export-csv').on('click', function() {
+            window.open('{{ route("admin.export-csv") }}');
+        });
+
+    });
+</script>
+@endsection
