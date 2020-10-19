@@ -19,9 +19,9 @@ c
 |
  
  */
- 
+
 Route::group(['middleware' => 'auth:web2'], function () {
-    
+
 
     Route::get('/', 'CouponController@index');
 
@@ -57,26 +57,19 @@ Route::get('link-invalido', [
 
 Route::get('/', function () {
 
-    if ($_SERVER['HTTP_HOST'] == 'descontos.otimaideia.com.br') {
-        
+    if ($_SERVER['HTTP_HOST'] == 'descontos.otimaideia.com.br')
         return redirect('/desconto');
-        
-    }else if($_SERVER['HTTP_HOST'] == 'pedidos.otimaideia.com.br'){
-        
+    else
         return redirect('/delivery');
-        
-    }
-
-    
 });
 
 // Search Inicio
 
-Route::get('/search','DeliveryController@search');
+Route::get('/search', 'DeliveryController@search');
 
 //Seach Final
- 
-Route::get('delivery', [ 
+
+Route::get('delivery', [
     'as' => 'productdelivery.index',
     'uses' => 'DeliveryController@deliveryProducts'
 ]);
@@ -93,8 +86,8 @@ Route::get('delivery/sao-vicente', [
     'as' => 'productdelivery.first',
     'uses' => 'DeliveryController@deliveryProductsSV'
 ]);
-Route::get('delivery/ceps', [ 
-   'as' => 'productdelivery.index',
+Route::get('delivery/ceps', [
+    'as' => 'productdelivery.index',
     'uses' => 'DeliveryController@first'
 ]);
 
@@ -549,7 +542,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
     // Authentication Routes...
 
-    $this->get('login', 'Auth\LoginController@showLoginForm')->name('login'); 
+    $this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
 
     $this->post('login', 'Auth\LoginController@login');
 
@@ -640,7 +633,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
         Route::post('ajax-index-order', 'OrderController@indexAjax');
         Route::post('ajax-category', 'ProductsController@ajax');
         Route::post('ajax-edit', 'ProductsController@ajaxEdit');
-          
+
 
         Route::get('/cupom/bycode/{code}', [
 
@@ -657,7 +650,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
             'as' => 'orders.newOrders',
 
             'uses' => 'OrderController@getNewOrders'
- 
+
         ]);
 
         Route::get('/pusher/{data}', function ($data) {
@@ -1518,7 +1511,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
                 'uses' => 'OrderTaxController@update'
 
             ]);
-            
+
             Route::get('/order/tax/search={name}', [
 
                 'as' => 'ordertax.search-name',
@@ -1763,8 +1756,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
                 'uses' => 'ReportsController@index'
 
             ]);
-             
-             Route::get('/cashier', [
+
+            Route::get('/cashier', [
 
                 'as' => 'cashier.index',
 
@@ -1778,7 +1771,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
                 'uses' => 'CashierController@list'
 
             ]);
-             Route::post('/cashier/store', [
+            Route::post('/cashier/store', [
 
                 'as' => 'cashier.store',
 
@@ -1792,7 +1785,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
                 'uses' => 'CashierController@storeP'
 
             ]);
-            
+
             Route::post('/cashier/storeC', [
 
                 'as' => 'cashier.storeC',
@@ -1807,8 +1800,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
                 'uses' => 'CashierController@storeD'
 
             ]);
-            
-             Route::get('/cashier/storeS', [
+
+            Route::get('/cashier/storeS', [
 
                 'as' => 'cashier.storeS',
 
@@ -1822,15 +1815,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
                 'uses' => 'CashierController@show'
 
             ]);
-             Route::get('/table', [
+            Route::get('/table', [
 
                 'as' => 'table.index',
 
                 'uses' => 'TableSystemController@index'
 
             ]);
-             
-             
+
+
 
             Route::get('/avaliations', [
 
